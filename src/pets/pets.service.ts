@@ -3,6 +3,7 @@ import { PetsRepository } from './pets.repository';
 import { CreatePetDto } from '../dto/CreatePet.dto';
 import { UsersService } from '../users/users.service';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
+import { PetDocument } from '../entities/pet.schema';
 
 @Injectable()
 export class PetsService {
@@ -11,12 +12,12 @@ export class PetsService {
     private readonly usersService: UsersService,
   ) {}
 
-  async create(createPetDto: CreatePetDto) {
+  async create(createPetDto: CreatePetDto): Promise<PetDocument> {
     await this.verifyUserExists(createPetDto.petOwner);
     return this.petsRepository.create(createPetDto);
   }
 
-  async findAllUserPets(userEmail: string) {
+  async findAllUserPets(userEmail: string): Promise<PetDocument[]> {
     await this.verifyUserExists(userEmail);
     return this.petsRepository.findAllUserPets(userEmail);
   }

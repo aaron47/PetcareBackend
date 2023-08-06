@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { PetsService } from './pets.service';
 import { CreatePetDto } from '../dto/CreatePet.dto';
+import { PetDocument } from '../entities/pet.schema';
 
 @Controller('pets')
 export class PetsController {
@@ -16,13 +17,15 @@ export class PetsController {
 
   @Post('addPet')
   @HttpCode(HttpStatus.CREATED)
-  async addPet(@Body() createPetDto: CreatePetDto) {
+  async addPet(@Body() createPetDto: CreatePetDto): Promise<PetDocument> {
     return this.petsService.create(createPetDto);
   }
 
   @Get('all/:userEmail')
   @HttpCode(HttpStatus.OK)
-  async findAllUserPets(@Param('userEmail') userEmail: string) {
+  async findAllUserPets(
+    @Param('userEmail') userEmail: string,
+  ): Promise<PetDocument[]> {
     return this.petsService.findAllUserPets(userEmail);
   }
 }
