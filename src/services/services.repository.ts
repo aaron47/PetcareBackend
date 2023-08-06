@@ -30,4 +30,8 @@ export class ServicesRepository {
   async findAllServices(): Promise<ServiceDocument[]> {
     return this.serviceModel.find().exec();
   }
+
+  async findUserServices(userEmail: string): Promise<ServiceDocument[]> {
+    return this.serviceModel.find({ usersOfferingService: userEmail }).exec();
+  }
 }

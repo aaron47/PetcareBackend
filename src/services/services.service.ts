@@ -30,6 +30,11 @@ export class ServicesService {
     return this.servicesRepository.findAllServices();
   }
 
+  async findUserServices(userEmail: string): Promise<ServiceDocument[]> {
+    await this.verifyUserExists(userEmail);
+    return this.servicesRepository.findUserServices(userEmail);
+  }
+
   private async verifyUserExists(userEmail: string) {
     const user = await this.usersService.findOneByEmail(userEmail);
 
