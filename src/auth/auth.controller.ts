@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from '../dto/CreateUser.dto';
 import { UserDocument } from '../entities/user.schema';
 import { AuthService } from './auth.service';
@@ -18,5 +25,11 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createUserDto: CreateUserDto): Promise<UserDocument> {
     return this.authService.signUp(createUserDto);
+  }
+
+  @Get('user/:email')
+  @HttpCode(HttpStatus.OK)
+  async findUserByEmail(@Body() userEmail: string): Promise<UserDocument> {
+    return this.authService.findUserByEmail(userEmail);
   }
 }

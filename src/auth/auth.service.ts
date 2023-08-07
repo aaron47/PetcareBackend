@@ -29,6 +29,10 @@ export class AuthService {
     throw new UserNotFoundException();
   }
 
+  async findUserByEmail(userEmail: string): Promise<UserDocument> {
+    return this.usersService.findOneByEmail(userEmail);
+  }
+
   async signUp(createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
