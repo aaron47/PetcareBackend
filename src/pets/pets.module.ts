@@ -9,7 +9,7 @@ import { UsersModule } from '../users/users.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: PetDocument.name, schema: PetSchema }]),
-    UsersModule
+    UsersModule,
   ],
   providers: [PetsService, PetsRepository],
   controllers: [PetsController],
