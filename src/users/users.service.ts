@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { CreateUserDto } from '../dto/CreateUser.dto';
 import { UserDocument } from '../entities/user.schema';
 import * as argon2 from 'argon2';
 import { UserAlreadyExistsException } from '../exceptions/UserAlreadyExistsException';
+import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
+import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +28,29 @@ export class UsersService {
 
   async findOneByEmail(email: string): Promise<UserDocument> {
     return this.usersRepository.findOneByEmail(email);
+  }
+
+  async updateUserAccountStatus(
+    updateUserAccountStatusDto: UpdateUserAccountStatusDto,
+  ) {
+    await this.verifyIsUserAdmin(updateUserAccountStatusDto.adminEmail);
+
+    return this.usersRepository.updateUserStatusByEmail(
+      updateUserAccountStatusDto.userEmail,
+      updateUserAccountStatusDto.status,
+    );
+  }
+
+  private async verifyIsUserAdmin(adminEmail: string) {
+    const user = await this.usersRepository.findOneByEmail(adminEmail);
+
+    if (user.role !== 'admin') {
+      throw new BadRequestException('User is not admin');
+    }
+
+    if (!user) {
+      throw new UserNotFoundException();
+    }
   }
 
   private async hashPassword(password: string) {

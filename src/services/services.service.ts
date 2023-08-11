@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { ServicesRepository } from './services.repository';
 import { ServiceDocument } from '../entities/service.schema';
 import { CreateServiceDto } from '../dto/CreateService.dto';
@@ -16,6 +16,8 @@ export class ServicesService {
   async createService(
     createServiceDto: CreateServiceDto,
   ): Promise<ServiceDocument> {
+    await this.verifyUserExists(createServiceDto.userEmail);
+
     return this.servicesRepository.create(createServiceDto);
   }
 
@@ -37,6 +39,10 @@ export class ServicesService {
 
   private async verifyUserExists(userEmail: string) {
     const user = await this.usersService.findOneByEmail(userEmail);
+
+    if (user.role !== 'sitter') {
+      throw new BadRequestException('User must be a sitter to add a service');
+    }
 
     if (!user) throw new UserNotFoundException();
   }

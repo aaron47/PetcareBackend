@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PetsRepository } from './pets.repository';
 import { CreatePetDto } from '../dto/CreatePet.dto';
 import { UsersService } from '../users/users.service';
@@ -24,6 +24,10 @@ export class PetsService {
 
   private async verifyUserExists(userEmail: string) {
     const user = await this.usersService.findOneByEmail(userEmail);
+
+    if (user.role !== 'owner') {
+      throw new BadRequestException('User must be an owner to add a pet');
+    }
 
     if (!user) throw new UserNotFoundException();
   }

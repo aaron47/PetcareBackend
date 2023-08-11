@@ -5,6 +5,8 @@ import { LoginUserDto } from '../dto/LoginUser.dto';
 import * as argon2 from 'argon2';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { CreateUserDto } from '../dto/CreateUser.dto';
+import { AccountIsNotValidException } from '../exceptions/AccountIsNotValidException';
+import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +23,18 @@ export class AuthService {
         user.password,
       );
 
-      if (isPasswordValid) {
+      const isAccountStatusValid = user.accountStatus === 'active';
+
+      if (isPasswordValid && isAccountStatusValid) {
         return user;
+      }
+
+      if (!isAccountStatusValid) {
+        throw new AccountIsNotValidException();
+      }
+
+      if (!isPasswordValid) {
+        throw new UserNotFoundException();
       }
     }
 
@@ -39,6 +51,14 @@ export class AuthService {
 
   async login(loginUserDto: LoginUserDto): Promise<UserDocument> {
     return await this.validateUser(loginUserDto);
+  }
+
+  async updateUserAccountStatus(
+    updateUserAccountStatusDto: UpdateUserAccountStatusDto,
+  ) {
+    return this.usersService.updateUserAccountStatus(
+      updateUserAccountStatusDto,
+    );
   }
 
   private async verifyPassword(inputPassword: string, hashedPassword: string) {

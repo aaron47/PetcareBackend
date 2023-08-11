@@ -10,10 +10,25 @@ export class UserDocument extends Document {
   email: string;
 
   @Prop({ required: true })
+  role: UserRole;
+
+  @Prop({ required: true })
+  gender: string;
+
+  @Prop({ required: true })
   phone: string;
 
   @Prop({ required: true })
   password: string;
+
+  @Prop()
+  accountStatus = 'pending';
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserDocument);
+
+export enum UserRole {
+  ADMIN = 'admin',
+  SITTER = 'sitter',
+  OWNER = 'owner',
+}

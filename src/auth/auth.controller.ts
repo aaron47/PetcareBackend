@@ -10,6 +10,7 @@ import { CreateUserDto } from '../dto/CreateUser.dto';
 import { UserDocument } from '../entities/user.schema';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from '../dto/LoginUser.dto';
+import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -31,5 +32,13 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async findUserByEmail(@Body() userEmail: string): Promise<UserDocument> {
     return this.authService.findUserByEmail(userEmail);
+  }
+
+  @Post('updateUserAccountStatus')
+  @HttpCode(HttpStatus.OK)
+  async updateUserAccountStatus(
+    @Body() updateUserAccountStatusDto: UpdateUserAccountStatusDto,
+  ) {
+    return this.authService.updateUserAccountStatus(updateUserAccountStatusDto);
   }
 }
