@@ -12,6 +12,10 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  imageLink: string;
+
+  @IsString()
+  @IsNotEmpty()
   gender: string;
 
   @IsString()
