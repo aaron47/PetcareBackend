@@ -10,6 +10,12 @@ export class UserDocument extends Document {
   email: string;
 
   @Prop({ required: true })
+  imageLink: string;
+
+  @Prop({ required: true })
+  address: string;
+
+  @Prop({ required: true })
   role: UserRole;
 
   @Prop({ required: true })
@@ -21,8 +27,8 @@ export class UserDocument extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop()
-  accountStatus = 'pending';
+  @Prop({ required: false })
+  accountStatus: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserDocument);

@@ -25,13 +25,16 @@ export class AuthService {
 
       const isAccountStatusValid = user.accountStatus === 'active';
 
-      if (isPasswordValid && isAccountStatusValid) {
+      // if (isPasswordValid && isAccountStatusValid) {
+      //   return user;
+      // }
+      if (isPasswordValid) {
         return user;
       }
 
-      if (!isAccountStatusValid) {
-        throw new AccountIsNotValidException();
-      }
+      // if (!isAccountStatusValid) {
+      //   throw new AccountIsNotValidException();
+      // }
 
       if (!isPasswordValid) {
         throw new UserNotFoundException();

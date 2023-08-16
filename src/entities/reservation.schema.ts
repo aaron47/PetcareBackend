@@ -4,9 +4,6 @@ import { Document } from 'mongoose';
 @Schema({ versionKey: false, collection: 'reservations' })
 export class ReservationDocument extends Document {
   @Prop({ required: true })
-  ownerId: string;
-
-  @Prop({ required: true })
   sitterId: string;
 
   @Prop({ required: true })
@@ -16,16 +13,19 @@ export class ReservationDocument extends Document {
   serviceId: string;
 
   @Prop({ required: true })
-  createdAt = new Date().toLocaleDateString();
-
-  @Prop()
-  status = 'pending';
+  type: string;
 
   @Prop({ required: true })
-  duration: string;
+  dateDeb: string;
 
   @Prop({ required: true })
-  budget: number;
+  dateFin: string;
+
+  @Prop({ required: false })
+  status: string;
+
+  @Prop({ required: true })
+  prixTotal: number;
 }
 
 export const ReservationSchema =
