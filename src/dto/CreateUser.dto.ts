@@ -16,6 +16,10 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  address: string;
+
+  @IsString()
+  @IsNotEmpty()
   gender: string;
 
   @IsString()
