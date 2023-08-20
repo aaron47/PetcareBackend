@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from '../dto/CreateUser.dto';
@@ -30,7 +31,9 @@ export class AuthController {
 
   @Get('user/:email')
   @HttpCode(HttpStatus.OK)
-  async findUserByEmail(@Body() userEmail: string): Promise<UserDocument> {
+  async findUserByEmail(
+    @Param('email') userEmail: string,
+  ): Promise<UserDocument> {
     return this.authService.findUserByEmail(userEmail);
   }
 

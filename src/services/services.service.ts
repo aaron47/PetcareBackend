@@ -33,7 +33,7 @@ export class ServicesService {
   }
 
   async findUserServices(userEmail: string): Promise<ServiceDocument[]> {
-    await this.verifyUserExists(userEmail);
+    // await this.verifyUserExists(userEmail);
     return this.servicesRepository.findUserServices(userEmail);
   }
 
