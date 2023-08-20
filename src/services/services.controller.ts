@@ -43,4 +43,10 @@ export class ServicesController {
   async findUserServices(@Param('userEmail') userEmail: string) {
     return this.servicesService.findUserServices(userEmail);
   }
+
+  @Get('findUsersByService/:serviceId')
+  @HttpCode(HttpStatus.OK)
+  async findUsersByService(@Param('serviceId') serviceId: string) {
+    return this.servicesService.findUsersByService(serviceId);
+  }
 }

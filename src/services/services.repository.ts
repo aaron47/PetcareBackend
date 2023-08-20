@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateServiceDto } from '../dto/CreateService.dto';
 import { AddOfferingUserDto } from '../dto/AddOfferingUser.dto';
+import { ServiceNotFoundException } from 'src/exceptions/ServiceNotFoundException';
 
 @Injectable()
 export class ServicesRepository {
@@ -33,5 +34,13 @@ export class ServicesRepository {
 
   async findUserServices(userEmail: string): Promise<ServiceDocument[]> {
     return this.serviceModel.find({ usersOfferingService: userEmail }).exec();
+  }
+
+  async findUsersByService(serviceId: string): Promise<string[]> {
+    const service = await this.serviceModel.findById(serviceId).exec();
+    if (!service) {
+      throw new ServiceNotFoundException();
+    }
+    return service.usersOfferingService;
   }
 }

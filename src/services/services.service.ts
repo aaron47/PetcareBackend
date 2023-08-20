@@ -37,6 +37,10 @@ export class ServicesService {
     return this.servicesRepository.findUserServices(userEmail);
   }
 
+  async findUsersByService(serviceId: string): Promise<string[]> {
+    return this.servicesRepository.findUsersByService(serviceId);
+  }
+
   private async verifyUserExists(userEmail: string) {
     const user = await this.usersService.findOneByEmail(userEmail);
 
