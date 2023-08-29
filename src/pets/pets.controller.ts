@@ -21,6 +21,12 @@ export class PetsController {
     return this.petsService.create(createPetDto);
   }
 
+  @Get('find/:petId')
+  @HttpCode(HttpStatus.OK)
+  async findPetById(@Param('petId') petId: string): Promise<PetDocument> {
+    return this.petsService.findPetById(petId);
+  }
+
   @Get('all/:userEmail')
   @HttpCode(HttpStatus.OK)
   async findAllUserPets(

@@ -18,6 +18,14 @@ export class ServicesRepository {
     return service.save();
   }
 
+  async findServiceById(serviceId: string): Promise<ServiceDocument> {
+    const service = await this.serviceModel.findById(serviceId).exec();
+    if (!service) {
+      throw new ServiceNotFoundException();
+    }
+    return service;
+  }
+
   async addOfferingUser(
     addOfferingUserDto: AddOfferingUserDto,
   ): Promise<ServiceDocument> {

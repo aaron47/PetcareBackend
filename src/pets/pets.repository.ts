@@ -15,6 +15,10 @@ export class PetsRepository {
     return pet.save();
   }
 
+  async findPetById(petId: string): Promise<PetDocument> {
+    return this.petModel.findById(petId).exec();
+  }
+
   async findAllUserPets(userEmail: string): Promise<PetDocument[]> {
     return this.petModel.find({ petOwner: userEmail }).exec();
   }

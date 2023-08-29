@@ -24,6 +24,12 @@ export class ServicesController {
     return this.servicesService.createService(createServiceDto);
   }
 
+  @Get('findServiceById/:serviceId')
+  @HttpCode(HttpStatus.OK)
+  async findServiceById(@Param('serviceId') serviceId: string) {
+    return this.servicesService.findServiceById(serviceId);
+  }
+
   @Post('addOfferingUser')
   @HttpCode(HttpStatus.CREATED)
   async addOfferingUser(

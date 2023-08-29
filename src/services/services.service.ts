@@ -21,6 +21,10 @@ export class ServicesService {
     return this.servicesRepository.create(createServiceDto);
   }
 
+  async findServiceById(serviceId: string): Promise<ServiceDocument> {
+    return this.servicesRepository.findServiceById(serviceId);
+  }
+
   async addOfferingUser(
     addOfferingUserDto: AddOfferingUserDto,
   ): Promise<ServiceDocument> {

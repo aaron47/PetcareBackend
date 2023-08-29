@@ -17,6 +17,10 @@ export class PetsService {
     return this.petsRepository.create(createPetDto);
   }
 
+  async findPetById(petId: string): Promise<PetDocument> {
+    return this.petsRepository.findPetById(petId);
+  }
+
   async findAllUserPets(userEmail: string): Promise<PetDocument[]> {
     await this.verifyUserExists(userEmail);
     return this.petsRepository.findAllUserPets(userEmail);
