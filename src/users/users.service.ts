@@ -30,6 +30,10 @@ export class UsersService {
     return this.usersRepository.findOneByEmail(email);
   }
 
+  async findOneById(id: string): Promise<UserDocument> {
+    return this.usersRepository.findOneById(id);
+  }
+
   async updateUserAccountStatus(
     updateUserAccountStatusDto: UpdateUserAccountStatusDto,
   ) {

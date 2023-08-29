@@ -48,6 +48,10 @@ export class AuthService {
     return this.usersService.findOneByEmail(userEmail);
   }
 
+  async findUserById(userId: string): Promise<UserDocument> {
+    return this.usersService.findOneById(userId);
+  }
+
   async signUp(createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }

@@ -37,6 +37,12 @@ export class AuthController {
     return this.authService.findUserByEmail(userEmail);
   }
 
+  @Get('user/id/:id')
+  @HttpCode(HttpStatus.OK)
+  async findUserById(@Param('id') id: string): Promise<UserDocument> {
+    return this.authService.findUserById(id);
+  }
+
   @Post('updateUserAccountStatus')
   @HttpCode(HttpStatus.OK)
   async updateUserAccountStatus(

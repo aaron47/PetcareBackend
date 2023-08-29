@@ -20,6 +20,10 @@ export class UsersRepository {
     return this.userModel.findOne({ email });
   }
 
+  async findOneById(id: string): Promise<UserDocument> {
+    return this.userModel.findById(id);
+  }
+
   async findOneByRole(role: string): Promise<UserDocument[]> {
     return this.userModel.find({ role });
   }
