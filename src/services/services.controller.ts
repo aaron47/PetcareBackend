@@ -11,6 +11,7 @@ import { ServicesService } from './services.service';
 import { CreateServiceDto } from '../dto/CreateService.dto';
 import { AddOfferingUserDto } from '../dto/AddOfferingUser.dto';
 import { ServiceDocument } from '../entities/service.schema';
+import { UpdateServiceDto } from 'src/dto/UpdateService.dto';
 
 @Controller('services')
 export class ServicesController {
@@ -22,6 +23,21 @@ export class ServicesController {
     @Body() createServiceDto: CreateServiceDto,
   ): Promise<ServiceDocument> {
     return this.servicesService.createService(createServiceDto);
+  }
+
+  @Post('updateService/:serviceId')
+  @HttpCode(HttpStatus.OK)
+  async updateService(
+    @Param('serviceId') serviceId: string,
+    @Body() updateServiceDto: UpdateServiceDto,
+  ): Promise<ServiceDocument> {
+    return this.servicesService.updateService(serviceId, updateServiceDto);
+  }
+
+  @Post('deleteService/:serviceId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteService(@Param('serviceId') serviceId: string): Promise<void> {
+    return this.servicesService.deleteService(serviceId);
   }
 
   @Get('findServiceById/:serviceId')

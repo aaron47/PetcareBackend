@@ -5,6 +5,7 @@ import { CreateServiceDto } from '../dto/CreateService.dto';
 import { AddOfferingUserDto } from '../dto/AddOfferingUser.dto';
 import { UsersService } from '../users/users.service';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
+import { UpdateServiceDto } from 'src/dto/UpdateService.dto';
 
 @Injectable()
 export class ServicesService {
@@ -19,6 +20,17 @@ export class ServicesService {
     await this.verifyUserExists(createServiceDto.userEmail);
 
     return this.servicesRepository.create(createServiceDto);
+  }
+
+  async updateService(
+    serviceId: string,
+    updateServiceDto: UpdateServiceDto,
+  ): Promise<ServiceDocument> {
+    return this.servicesRepository.updateService(serviceId, updateServiceDto);
+  }
+
+  async deleteService(serviceId: string): Promise<void> {
+    return this.servicesRepository.deleteService(serviceId);
   }
 
   async findServiceById(serviceId: string): Promise<ServiceDocument> {

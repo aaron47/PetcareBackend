@@ -7,6 +7,7 @@ import { UserNotFoundException } from '../exceptions/UserNotFoundException';
 import { CreateUserDto } from '../dto/CreateUser.dto';
 import { AccountIsNotValidException } from '../exceptions/AccountIsNotValidException';
 import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
+import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
 
 @Injectable()
 export class AuthService {
@@ -54,6 +55,17 @@ export class AuthService {
 
   async signUp(createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  async updateUser(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserDocument> {
+    return this.usersService.updateUser(id, updateUserDto);
+  }
+
+  async deleteUser(id: string): Promise<UserDocument> {
+    return this.usersService.deleteUser(id);
   }
 
   async login(loginUserDto: LoginUserDto): Promise<UserDocument> {

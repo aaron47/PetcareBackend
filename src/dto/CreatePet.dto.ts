@@ -24,14 +24,6 @@ export class CreatePetDto {
   @IsNotEmpty()
   petGender: string;
 
-  @IsString()
-  @IsNotEmpty()
-  petBloodPressure: string;
-
-  @IsString()
-  @IsNotEmpty()
-  petBoneDensity: string;
-
   @IsNumber()
   @IsNotEmpty()
   petWeight: number;

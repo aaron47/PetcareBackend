@@ -7,6 +7,11 @@ import { AuthModule } from './auth/auth.module';
 import { PetsModule } from './pets/pets.module';
 import { ServicesModule } from './services/services.module';
 import { ReservationsModule } from './reservations/reservations.module';
+import { OffresModule } from './offres/offres.module';
+import { MessagesModule } from './messages/messages.module';
+import { ArticlesModule } from './articles/articles.module';
+import { PublicationsModule } from './publications/publications.module';
+import { CommentairesModule } from './commentaires/commentaires.module';
 
 @Module({
   imports: [
@@ -28,6 +33,11 @@ import { ReservationsModule } from './reservations/reservations.module';
     PetsModule,
     ServicesModule,
     ReservationsModule,
+    OffresModule,
+    MessagesModule,
+    ArticlesModule,
+    PublicationsModule,
+    CommentairesModule,
   ],
 })
 export class AppModule {}

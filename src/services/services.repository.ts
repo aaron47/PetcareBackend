@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { CreateServiceDto } from '../dto/CreateService.dto';
 import { AddOfferingUserDto } from '../dto/AddOfferingUser.dto';
 import { ServiceNotFoundException } from 'src/exceptions/ServiceNotFoundException';
+import { UpdateServiceDto } from 'src/dto/UpdateService.dto';
 
 @Injectable()
 export class ServicesRepository {
@@ -16,6 +17,23 @@ export class ServicesRepository {
   async create(createServiceDto: CreateServiceDto): Promise<ServiceDocument> {
     const service = new this.serviceModel(createServiceDto);
     return service.save();
+  }
+
+  async deleteService(serviceId: string): Promise<void> {
+    await this.serviceModel.findByIdAndDelete(serviceId).exec();
+  }
+
+  async updateService(
+    serviceId: string,
+    updateServiceDto: UpdateServiceDto,
+  ): Promise<ServiceDocument> {
+    const service = await this.serviceModel
+      .findByIdAndUpdate(serviceId, updateServiceDto, { new: true })
+      .exec();
+    if (!service) {
+      throw new ServiceNotFoundException();
+    }
+    return service;
   }
 
   async findServiceById(serviceId: string): Promise<ServiceDocument> {

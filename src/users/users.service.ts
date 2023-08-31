@@ -6,6 +6,7 @@ import * as argon2 from 'argon2';
 import { UserAlreadyExistsException } from '../exceptions/UserAlreadyExistsException';
 import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
 import { UserNotFoundException } from '../exceptions/UserNotFoundException';
+import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,6 +25,17 @@ export class UsersService {
       ...createUserDto,
       password: hashedPassword,
     });
+  }
+
+  async updateUser(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserDocument> {
+    return this.usersRepository.updateUser(id, updateUserDto);
+  }
+
+  async deleteUser(id: string): Promise<UserDocument> {
+    return this.usersRepository.deleteUser(id);
   }
 
   async findOneByEmail(email: string): Promise<UserDocument> {

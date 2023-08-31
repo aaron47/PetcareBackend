@@ -12,6 +12,7 @@ import { UserDocument } from '../entities/user.schema';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from '../dto/LoginUser.dto';
 import { UpdateUserAccountStatusDto } from '../dto/UpdateUserAccountStatus.dto';
+import { UpdateUserDto } from 'src/dto/UpdateUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -27,6 +28,21 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   async create(@Body() createUserDto: CreateUserDto): Promise<UserDocument> {
     return this.authService.signUp(createUserDto);
+  }
+
+  @Post('user/delete/:id')
+  @HttpCode(HttpStatus.OK)
+  async deleteUser(@Param('id') id: string) {
+    return this.authService.deleteUser(id);
+  }
+
+  @Post('user/update/:id')
+  @HttpCode(HttpStatus.OK)
+  async updateUser(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UserDocument> {
+    return this.authService.updateUser(id, updateUserDto);
   }
 
   @Get('user/:email')

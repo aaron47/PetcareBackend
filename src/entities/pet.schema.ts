@@ -22,12 +22,6 @@ export class PetDocument extends Document {
   petGender: string;
 
   @Prop({ required: true })
-  petBloodPressure: string;
-
-  @Prop({ required: true })
-  petBoneDensity: string;
-
-  @Prop({ required: true })
   petWeight: number;
 
   @Prop({ required: true })
