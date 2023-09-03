@@ -17,6 +17,10 @@ export class UsersRepository {
     return user.save();
   }
 
+  async findAll() {
+    return this.userModel.find().exec();
+  }
+
   async findOneByEmail(email: string): Promise<UserDocument> {
     return this.userModel.findOne({ email });
   }

@@ -25,6 +25,10 @@ export class OffresRepository {
     return this.offreModel.find({ serviceId }).exec();
   }
 
+  async findOffresByUser(userId: string) {
+    return this.offreModel.find({ userId }).exec();
+  }
+
   async update(offreId: string, updateOffreDto: UpdateOffreDto) {
     return this.offreModel.findByIdAndUpdate(
       offreId,

@@ -17,6 +17,11 @@ export class MessagesController {
     return this.messagesRepository.findMessageByReservation(id);
   }
 
+  @Get('expediteur/:expediteur')
+  async getMessagesByExpediteur(@Param('expediteur') expediteur) {
+    return this.messagesRepository.findMessageByReservation(expediteur);
+  }
+
   @Post('create')
   async createMessage(@Body() createMessageDto: CreateMessageDto) {
     return this.messagesRepository.create(createMessageDto);
@@ -32,6 +37,6 @@ export class MessagesController {
 
   @Post(':id/delete')
   async deleteMessage(@Param('id') id: string) {
-    return this.messagesRepository.deleteMessgae(id);
+    return this.messagesRepository.deleteMessage(id);
   }
 }

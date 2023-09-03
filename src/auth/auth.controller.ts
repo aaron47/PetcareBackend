@@ -45,6 +45,11 @@ export class AuthController {
     return this.authService.updateUser(id, updateUserDto);
   }
 
+  @Get('users')
+  async findAllUsers() {
+    return this.authService.findAllUsers();
+  }
+
   @Get('user/:email')
   @HttpCode(HttpStatus.OK)
   async findUserByEmail(

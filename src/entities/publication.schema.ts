@@ -14,6 +14,9 @@ export class PublicationDocument extends Document {
 
   @Prop()
   nbrLikes: number;
+
+  @Prop({ required: true })
+  userId: string;
 }
 
 export const PublicationSchema =

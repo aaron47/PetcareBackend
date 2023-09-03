@@ -23,6 +23,10 @@ export class CommentairesRepository {
     return this.commentaireModel.find().exec();
   }
 
+  findByUser(userId: string) {
+    return this.commentaireModel.find({ userId }).exec();
+  }
+
   findAllByPublicationId(
     publicationId: string,
   ): Promise<CommentaireDocument[]> {

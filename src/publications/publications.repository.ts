@@ -22,6 +22,11 @@ export class PublicationsRepository {
     return this.publicationModel.find().exec();
   }
 
+
+  async findPublicationsByUser(userId: string) {
+    return this.publicationModel.find({ userId }).exec();
+  }
+
   async update(
     publicationId: string,
     updatePublicationDto: UpdatePublicationDto,

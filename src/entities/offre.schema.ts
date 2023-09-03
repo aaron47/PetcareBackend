@@ -14,6 +14,9 @@ export class OffreDocument extends Document {
 
   @Prop({ required: true })
   serviceId: string;
+
+  @Prop({ required: true })
+  userId: string;
 }
 
 export const OffreSchema = SchemaFactory.createForClass(OffreDocument);

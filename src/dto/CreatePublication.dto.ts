@@ -12,4 +12,8 @@ export class CreatePublicationDto {
   @IsString()
   @IsNotEmpty()
   image: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }

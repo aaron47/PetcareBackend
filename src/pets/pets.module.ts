@@ -11,6 +11,7 @@ import { UsersModule } from '../users/users.module';
     MongooseModule.forFeature([{ name: PetDocument.name, schema: PetSchema }]),
     UsersModule,
   ],
+  exports: [PetsRepository],
   providers: [PetsService, PetsRepository],
   controllers: [PetsController],
 })

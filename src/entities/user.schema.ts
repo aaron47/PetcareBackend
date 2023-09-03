@@ -27,7 +27,7 @@ export class UserDocument extends Document {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: false })
+  @Prop({ required: true })
   accountStatus: string;
 }
 

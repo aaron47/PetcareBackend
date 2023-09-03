@@ -25,6 +25,10 @@ export class MessagesRepository {
     return this.messageModel.find({ reservationId }).exec();
   }
 
+  async findMessageByExpediteur(expediteur: string) {
+    return this.messageModel.find({ expediteur }).exec();
+  }
+
   async updateMessage(messageId: string, updateMessageDto: UpdateMessageDto) {
     return this.messageModel.findByIdAndUpdate(
       messageId,
@@ -33,7 +37,7 @@ export class MessagesRepository {
     );
   }
 
-  async deleteMessgae(messageId: string) {
+  async deleteMessage(messageId: string) {
     return this.messageModel.findByIdAndDelete(messageId);
   }
 }

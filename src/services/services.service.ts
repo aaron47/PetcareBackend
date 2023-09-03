@@ -17,7 +17,7 @@ export class ServicesService {
   async createService(
     createServiceDto: CreateServiceDto,
   ): Promise<ServiceDocument> {
-    await this.verifyUserExists(createServiceDto.userEmail);
+    // await this.verifyUserExists(createServiceDto.userEmail);
 
     return this.servicesRepository.create(createServiceDto);
   }
@@ -40,7 +40,7 @@ export class ServicesService {
   async addOfferingUser(
     addOfferingUserDto: AddOfferingUserDto,
   ): Promise<ServiceDocument> {
-    await this.verifyUserExists(addOfferingUserDto.userEmail);
+    // await this.verifyUserExists(addOfferingUserDto.userEmail);
     return this.servicesRepository.addOfferingUser(addOfferingUserDto);
   }
 
@@ -57,13 +57,13 @@ export class ServicesService {
     return this.servicesRepository.findUsersByService(serviceId);
   }
 
-  private async verifyUserExists(userEmail: string) {
-    const user = await this.usersService.findOneByEmail(userEmail);
+  // private async verifyUserExists(userEmail: string) {
+  //   const user = await this.usersService.findOneByEmail(userEmail);
 
-    if (user.role !== 'sitter') {
-      throw new BadRequestException('User must be a sitter to add a service');
-    }
+  //   if (user.role !== 'sitter') {
+  //     throw new BadRequestException('User must be a sitter to add a service');
+  //   }
 
-    if (!user) throw new UserNotFoundException();
-  }
+  //   if (!user) throw new UserNotFoundException();
+  // }
 }

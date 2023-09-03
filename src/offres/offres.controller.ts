@@ -22,6 +22,11 @@ export class OffresController {
     return this.offresRepository.findOffresByService(id);
   }
 
+  @Get('user/:id')
+  async findOffresByUser(@Param('id') id: string) {
+    return this.offresRepository.findOffresByUser(id);
+  }
+
   @Post(':id/update')
   async update(
     @Param('id') id: string,

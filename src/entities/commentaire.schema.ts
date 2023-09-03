@@ -9,6 +9,9 @@ export class CommentaireDocument extends Document {
 
   @Prop({ required: true })
   publicationId: string;
+  
+  @Prop({ required: true })
+  userId: string;
 }
 
 export const CommentaireSchema =

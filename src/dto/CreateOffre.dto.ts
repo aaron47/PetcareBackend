@@ -16,4 +16,8 @@ export class CreateOffreDto {
   @IsString()
   @IsNotEmpty()
   serviceId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }

@@ -13,6 +13,7 @@ import { UsersModule } from '../users/users.module';
     ]),
     UsersModule,
   ],
+  exports: [ServicesRepository],
   controllers: [ServicesController],
   providers: [ServicesService, ServicesRepository],
 })

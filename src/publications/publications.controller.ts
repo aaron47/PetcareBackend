@@ -27,6 +27,11 @@ export class PublicationsController {
     return this.publicationsRepository.findAll();
   }
 
+  @Get('user/:id')
+  findPublicationsByUser(@Param('id') id: string) {
+    return this.publicationsRepository.findPublicationsByUser(id);
+  }
+
   @Put(':id/update')
   update(
     @Param('id') publicationId: string,

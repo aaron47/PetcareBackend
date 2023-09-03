@@ -17,6 +17,11 @@ export class CommentairesController {
     return this.commentaireRepository.findAll();
   }
 
+  @Get('user/:id')
+  findByUser(@Param('id') id: string) {
+    return this.commentaireRepository.findByUser(id);
+  }
+
   @Get('publication/:id')
   findAllByPublicationId(
     @Param('id') publicationId: string,

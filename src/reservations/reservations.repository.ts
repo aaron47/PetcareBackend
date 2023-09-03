@@ -1,16 +1,22 @@
+import { ReservationDocument } from './../entities/reservation.schema';
+import { ServicesRepository } from './../services/services.repository';
+import { PetsRepository } from './../pets/pets.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { ReservationDocument } from '../entities/reservation.schema';
 import { Model } from 'mongoose';
 import { CreateReservationDto } from '../dto/CreateReservation.dto';
 import { ReservationNotFoundException } from 'src/exceptions/ReservationNotFoundException';
 import { UpdateReservationDto } from 'src/dto/UpdateReservation.dto';
+import { UsersRepository } from 'src/users/users.repository';
 
 @Injectable()
 export class ReservationsRepository {
   constructor(
     @InjectModel(ReservationDocument.name)
     private readonly reservationModel: Model<ReservationDocument>,
+    private readonly petsRepository: PetsRepository,
+    private readonly servicesRepository: ServicesRepository,
+    private readonly usersRepository: UsersRepository,
   ) {}
 
   async create(
@@ -34,6 +40,28 @@ export class ReservationsRepository {
 
   async findAll(): Promise<ReservationDocument[]> {
     return this.reservationModel.find().exec();
+  }
+
+  async findReservationsByUserId(): Promise<any[]> {
+    const modifiedReservations = [];
+    const reservations = await this.reservationModel.find().exec();
+
+    for (const r of reservations) {
+      const user = await this.usersRepository.findOneById(r.sitterId);
+      const service = await this.servicesRepository.findServiceById(
+        r.serviceId,
+      );
+      const pet = await this.petsRepository.findPetById(r.petId);
+
+      modifiedReservations.push({
+        ...r.toObject(),
+        user: user.toObject(),
+        service: service.toObject(),
+        pet: pet.toObject(),
+      });
+    }
+
+    return modifiedReservations;
   }
 
   async acceptReservation(reservationId: string): Promise<ReservationDocument> {

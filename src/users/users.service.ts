@@ -23,8 +23,13 @@ export class UsersService {
 
     return this.usersRepository.create({
       ...createUserDto,
+      accountStatus: 'pending',
       password: hashedPassword,
     });
+  }
+
+  async findAll() {
+    return this.usersRepository.findAll();
   }
 
   async updateUser(

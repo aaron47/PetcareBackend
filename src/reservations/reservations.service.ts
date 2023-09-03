@@ -20,6 +20,10 @@ export class ReservationsService {
     return this.reservationsRepository.findAll();
   }
 
+  async findAllByUserId() {
+    return this.reservationsRepository.findReservationsByUserId();
+  }
+
   async acceptReservation(reservationId: string): Promise<ReservationDocument> {
     return this.reservationsRepository.acceptReservation(reservationId);
   }

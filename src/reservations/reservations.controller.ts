@@ -14,7 +14,7 @@ export class ReservationsController {
 
   @Get()
   async findAll() {
-    return this.reservationsService.findAll();
+    return this.reservationsService.findAllByUserId();
   }
 
   @Post(':reservationId/accept')

@@ -10,4 +10,8 @@ export class CreateCommentaireDto {
   @IsString()
   @IsNotEmpty()
   publicationId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
 }
